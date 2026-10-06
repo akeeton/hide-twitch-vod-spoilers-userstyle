@@ -1,0 +1,65 @@
+/* ==UserStyle==
+@name         Hide Twitch VOD spoilers
+@namespace    https://github.com/akeeton
+@version      1.0.0
+@description  Hide elements from a VOD that could spoil the outcome.  Change what's shown in the style's configuration menu.
+@author       akeeton (https://github.com/akeeton)
+@license      MIT
+@preprocessor stylus
+
+@var select HideSeekBar "Seek bar" ["hide_seek_bar:Hide*", "show:Show"]
+@var select HideTimes "Current time and duration" ["hide_times_all:Hide all", "hide_times_current:Hide current time", "hide_times_duration:Hide duration*", "hide_times_none:Show all"]
+@var select HidePreview "Hover preview and time" ["hide_preview_time:Hide time*", "hide_preview_all:Hide all", "hide_preview_none:Show all"]
+@var select HideCopyTime "Copy Video URL at <time>" ["hide_copy_time:Hide time", "hide_copy_time_none:Show*"]
+==/UserStyle== */
+
+@-moz-document url-prefix("https://www.twitch.tv/videos/") {
+    .video-player {
+        if HideSeekBar == hide_seek_bar {
+            .seekbar-bar > * {
+                visibility: hidden !important;
+            }
+        }
+
+        if HideTimes == hide_times_all {
+            .vod-seekbar-time-labels {
+                visibility: hidden !important;
+            }
+        } else if HideTimes == hide_times_current {
+            .vod-seekbar-time-labels > p:nth-child(1) {
+                visibility: hidden !important;
+            }
+        } else if HideTimes == hide_times_duration {
+            .vod-seekbar-time-labels > p:nth-child(2) {
+                visibility: hidden !important;
+            }
+        }
+
+        if HidePreview == hide_preview_time {
+            .vod-seekbar-preview-overlay__wrapper > div > div > div > div p {
+                visibility: hidden !important;
+            }
+        } else if HidePreview == hide_preview_all {
+            .vod-seekbar-preview-overlay__wrapper {
+                visibility: hidden !important;
+            }
+        }
+    }
+
+    // In the video gear menu, replace e.g. "Copy Video URL at 2:39:11" with "Copy Video URL at <hidden time>"
+    if HideCopyTime == hide_copy_time {
+        [data-a-target="player-settings-menu"] > div:nth-last-child(2) [role="menuitem"] > div > div {
+            position: relative;
+            visibility: hidden !important;
+
+            &::after {
+                content: "Copy Video URL at <hidden time>";
+                position: absolute;
+                top: 0;
+                left: 0;
+                white-space: nowrap;
+                visibility: visible;
+            }
+        }
+    }
+}
