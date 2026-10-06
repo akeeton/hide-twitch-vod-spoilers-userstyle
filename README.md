@@ -21,3 +21,6 @@ Click the Stylus extension icon and then click the gear icon next to the usersty
 
 <img width="719" height="493" alt="Screenshot of VOD with spoiling elements hidden" src="https://github.com/user-attachments/assets/2f004dd9-65c9-468a-9e26-1eea0cc888b5" />
 <img width="719" height="493" alt="Screenshot of VOD and seek bar preview with spoiling elements hidden" src="https://github.com/user-attachments/assets/a6f0eb82-f89a-4370-9bdd-9cef5f65f957" />
+
+## Links
+[This style on Greasy Fork](https://greasyfork.org/en/scripts/598921-hide-twitch-vod-spoilers)
